@@ -1,0 +1,17 @@
+#
+# Removes iTunes completely.
+#
+# Authors:
+#   Mikkel Ricky <mikkel@mikkelricky.dk>
+#
+
+sudo killall iTunes
+sudo killall iTunesHelper
+# @see http://hints.macworld.com/article.php?story=20111226075701552
+# osascript -e 'tell application "System Events" to get the name of every login item'
+osascript -e 'tell application "System Events" to delete login item "iTunesHelper"'
+sudo rm -vr \
+		 /Applications/iTunes.app \
+		 ~/Library/iTunes \
+		 ~/Library/Preferences/**/*.iTunes.* \
+		 /Library/iTunes

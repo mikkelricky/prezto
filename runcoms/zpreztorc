@@ -33,8 +33,15 @@ zstyle ':prezto:load' pmodule \
   'history' \
   'directory' \
   'spectrum' \
-  'utility' \
+  'ssh' \
   'completion' \
+  'osx' \
+  'ruby' \
+  'rails' \
+  'git' \
+  'syntax-highlighting' \
+  'history-substring-search' \
+  'mikkelricky' \
   'prompt'
 
 #

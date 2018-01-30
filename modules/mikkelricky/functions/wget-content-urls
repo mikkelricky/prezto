@@ -1,0 +1,19 @@
+#
+# Lists all links found (recursively) on a webpage.
+#
+# Authors:
+#   Mikkel Ricky <mikkel@mikkelricky.dk>
+#
+
+if (( $# == 0 )); then
+		(>&2 echo "Usage: wget-content-urls url [wget options]")
+		return 1
+else
+	wget --spider --recursive --level=inf \
+ 			 --user-agent='Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.71 Safari/537.36' \
+			 --no-check-certificate \
+			 --follow-tags=a $* 2>&1 \
+			| grep '^--' \
+			| awk '{ print $3 }' \
+			| sort -u
+fi

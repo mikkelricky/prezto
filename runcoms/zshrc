@@ -11,3 +11,27 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 # Customize to your needs...
+fpath=(/usr/local/share/zsh-completions /usr/local/share/zsh/site-functions $fpath)
+
+rm -f ~/.zcompdump; compinit
+
+# https://gist.github.com/DanHerbert/9520690
+#export PATH="$HOME/.npm-packages/bin:$PATH"
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+# Allow use of # to start comments on command line
+setopt interactivecomments
+unsetopt inc_append_history
+unsetopt share_history
+
+export EDITOR='vi'
+export VISUAL='vi'
+
+alias ll='ls -l'
+
+if [ -d "${HOME}/.platformsh/" ]; then
+	# Automatically added by Platform.sh CLI installer
+	export PATH="${HOME}/.platformsh/bin:$PATH"
+	. "${HOME}/.platformsh/shell-config.rc" #2>/dev/null
+fi

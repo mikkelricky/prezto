@@ -1,0 +1,33 @@
+#
+# Brew cask upgrade.
+#
+# Authors:
+#   Mikkel Ricky <mikkel@mikkelricky.dk>
+#
+
+bold=$(tput bold)
+normal=$(tput sgr0)
+
+# https://github.com/caskroom/homebrew-cask/issues/4678#issuecomment-216340169
+
+brew update > /dev/null
+for app in $(brew cask list); do
+	echo "${bold}${app}${normal}"
+	cver="$(brew cask info "${app}" | head -n 1 | cut -d " " -f 2)"
+	ivers=$(ls -1r "/usr/local/Caskroom/${app}/.metadata/" | tr '\n' ' ' | sed -e 's/ $//')
+	aivers=(${ivers})
+	nvers=$(echo ${#aivers[@]})
+	echo "  Latest available version: ${cver}"
+	echo "  Installed version(s): ${ivers}"
+	if [[ ${nvers} -eq 1 ]]; then
+			echo "${ivers}" | grep -q "^${cver}$" && { echo "  Latest version already installed."; echo; continue; }
+	fi
+	echo -n "  Upgrade ${app} to ${cver}? [y|N] "
+	read -r
+	echo
+	if [[ $REPLY =~ ^[Yy]$ ]]; then
+			brew cask uninstall "${app}" --force
+			brew cask install "${app}"
+	fi
+	echo
+done

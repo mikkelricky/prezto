@@ -1,0 +1,18 @@
+#
+# Downloads a webpage and page requisites using wget.
+#
+# Authors:
+#   Mikkel Ricky <mikkel@mikkelricky.dk>
+#
+
+if (( $# == 0 )); then
+		(>&2 echo "Usage: wget-webpage url [wget options]")
+		return 1
+else
+	echo $*
+	wget --execute robots=off \
+ 			 --user-agent='Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.71 Safari/537.36' \
+			 --no-check-certificate \
+			 --page-requisites --convert-links --adjust-extension --restrict-file-names=windows \
+			 $*
+fi
