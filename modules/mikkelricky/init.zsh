@@ -95,5 +95,3 @@ function homestead() {
     ( cd ~/Homestead && vagrant $* )
 }
 
-
-export HOMEBREW_GITHUB_API_TOKEN="75d214c781f81afe099c2bb58be4c7a9d3f8b7f6"
